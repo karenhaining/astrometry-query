@@ -256,6 +256,10 @@ class Client(object):
         )
         return result
 
+    def calibrate_data(self, job_id):
+        result = self.send_request('jobs/%s/calibration' % job_id)
+        return result
+
 if __name__ == '__main__':
     print("Running with args %s"%sys.argv)
     import optparse
@@ -272,6 +276,7 @@ if __name__ == '__main__':
     parser.add_option('--corr', dest='corr', help='Download resulting corr.fits file, saving to given filename; implies --wait if --urlupload or --upload')
     parser.add_option('--kmz', dest='kmz', help='Download resulting kmz file, saving to given filename; implies --wait if --urlupload or --upload')
     parser.add_option('--annotate','-a',dest='annotate',help='store information about annotations in give file, JSON format; implies --wait if --urlupload or --upload')
+    parser.add_option('--calibrate',dest='calibrate',help='store information about calibrations in give file, JSON format; implies --wait if --urlupload or --upload')
     parser.add_option('--urlupload', '-U', dest='upload_url', help='Upload a file at specified url')
     parser.add_option('--scale-units', dest='scale_units',
                       choices=('arcsecperpix', 'arcminwidth', 'degwidth', 'focalmm'), help='Units for scale estimate ("arcsecperpix", "arcminwidth", "degwidth", or "focalmm")')
@@ -342,7 +347,7 @@ if __name__ == '__main__':
     c.login(opt.apikey)
 
     if opt.upload or opt.upload_url or opt.upload_xy:
-        if opt.wcs or opt.kmz or opt.newfits or opt.corr or opt.annotate:
+        if opt.wcs or opt.kmz or opt.newfits or opt.corr or opt.annotate or opt.calibrate:
             opt.wait = True
 
         kwargs = dict(
@@ -448,6 +453,11 @@ if __name__ == '__main__':
         if opt.annotate:
             result = c.annotate_data(opt.solved_id)
             with open(opt.annotate,'w') as f:
+                f.write(python2json(result))
+
+        if opt.calibrate:
+            result = c.calibrate_data(opt.solved_id)
+            with open(opt.calibrate,'w') as f:
                 f.write(python2json(result))
 
     if opt.wait:
