@@ -15,8 +15,6 @@ do
     echo "Processing $f file..."
     python3 client.py --apikey $APIKEY                      \
                       --upload $f                           \
-                      --newfits $resultsdir/newfits.fits    \
-                      --corr    $resultsdir/corr.fits       \
                       --annotate $resultsdir/annotations.json \
                       --calibrate $resultsdir/calibrate.json \
                       --private
