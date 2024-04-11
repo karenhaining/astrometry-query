@@ -1,4 +1,10 @@
+__pycache__/*
+
 *.fits
 
 *.png
 *.jpg
+
+*.html
+
+*.json
