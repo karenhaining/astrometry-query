@@ -42,7 +42,10 @@ for dir in os.scandir(processed_dir):
 
     # process star information
     ann_data = json.load(open(path + "/annotations.json"))["annotations"]
-    centroids = [[x["pixely"], x["pixelx"], x["names"]] for x in ann_data]
+    centroids = [[x["pixely"], x["pixelx"], x["names"], x["vmag"]] for x in ann_data]
+
+    im = Image.open('./raw_data/' + dir.name) # Can be many different formats.
+    pix = im.load()
 
     # get the catalog number
     for c in centroids:
@@ -57,27 +60,27 @@ for dir in os.scandir(processed_dir):
 
         # get HR num
         num = get_catalog_num(full_file_name)
-        c[2] = num
+        c.append(num)
 
+        # get brightness
+        x = c[0]
+        y = c[1]
 
-    # get brightness
-    im = Image.open('./raw_data/' + dir.name) # Can be many different formats.
-    pix = im.load()
-    x = c[0]
-    y = c[1]
+        # TODO account for grayscale?
+        rgb = pix[y,x]
+        brightness = (rgb[0] + rgb[1] + rgb[2])/3
 
-    rgb = pix[y,x]
-    brightness = (rgb[0] + rgb[1] + rgb[2])/3
+        c.append(brightness)
 
-    centroids.append(brightness)
 
     print(centroids)
 
+    # x, y, names, mag, cat unmm, bri
+    file_res['centroids'] = [[x[0], x[1]] for x in centroids]
+    file_res['mags'] = [x[3] for x in centroids]
+    file_res['stars'] = [x[4] for x in centroids]
+    file_res['brightness'] = [x[5] for x in centroids]
 
-
-    file_res['centroids'] = centroids
-
-    
     results[dir.name] = file_res
 
 # write to json file
