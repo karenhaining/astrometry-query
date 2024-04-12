@@ -22,7 +22,7 @@ def get_catalog_num(file):
     return int(final[1])
 
 # send pics & obtain results from astrometry
-# subprocess.run(["./astrometry-requests.sh", profile.API_KEY])
+subprocess.run(["./astrometry-requests.sh", profile.API_KEY])
 
 # process results from astrometry
 processed_dir = './processed_data'
@@ -31,7 +31,6 @@ results = {}
 # for every picture:
 subfolders = [ f.path for f in os.scandir(processed_dir) if f.is_dir() ]
 for dir in os.scandir(processed_dir):
-    print(dir.name + " ===================")
     file_res = {}
 
     path = processed_dir + '/' + dir.name
@@ -53,10 +52,10 @@ for dir in os.scandir(processed_dir):
 
         # get page from simbad
         loc = path + "/pics/"
-        # subprocess.run(["mkdir", "-p", loc])
+        subprocess.run(["mkdir", "-p", loc])
 
         full_file_name = loc + "/" + star_name + ".html"
-        # subprocess.run(["./simbad-requests.sh", full_file_name, star_name])
+        subprocess.run(["./simbad-requests.sh", full_file_name, star_name])
 
         # get HR num
         num = get_catalog_num(full_file_name)
@@ -71,9 +70,6 @@ for dir in os.scandir(processed_dir):
         brightness = (rgb[0] + rgb[1] + rgb[2])/3
 
         c.append(brightness)
-
-
-    print(centroids)
 
     # x, y, names, mag, cat unmm, bri
     file_res['centroids'] = [[x[0], x[1]] for x in centroids]
