@@ -1,6 +1,7 @@
 # Astrometry Query
 
 Run images through Astrometry.net to obtain the following information:
+- Attitude (ra and dec)
 - Centroid location (pixels)
 - Centroid pixel brightness
 - Star name
@@ -10,9 +11,9 @@ Queries simbad database to then resolve star name obtained from Astrometry.net t
 Outputs the data into `results.json`.
 
 ## Usage 
-You may need to install astropy: ``pip install astropy``.
+Clone the repo. You may need to install astropy: ``pip install astropy``.
 
-1. Get your API key from Astrometry.net. Create a file called `profile.py`, which will simply contain a variable holding your API key (`API_KEY = "*************"`)
+1. Get an API key from Astrometry.net. Create a file called `profile.py`, which will simply contain a variable holding your API key (`API_KEY = "*************"`)
 2. Create a directory called `raw_data`. Place the images you wish analyzed in here.
 3. Run script: `python3 run.py`
 
