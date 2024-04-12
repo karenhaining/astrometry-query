@@ -3,7 +3,10 @@ import subprocess
 import json
 import re
 import numpy as np
+
 import profile
+
+from PIL import Image
 
 # gets the catalog number from an html file from simbad
 def get_catalog_num(file):
@@ -47,7 +50,7 @@ for dir in os.scandir(processed_dir):
 
         # get page from simbad
         loc = path + "/pics/"
-        subprocess.run(["mkdir", "-p", loc])
+        # subprocess.run(["mkdir", "-p", loc])
 
         full_file_name = loc + "/" + star_name + ".html"
         # subprocess.run(["./simbad-requests.sh", full_file_name, star_name])
@@ -58,6 +61,15 @@ for dir in os.scandir(processed_dir):
 
 
     # get brightness
+    im = Image.open('./raw_data/' + dir.name) # Can be many different formats.
+    pix = im.load()
+    x = c[0]
+    y = c[1]
+
+    rgb = pix[y,x]
+    brightness = (rgb[0] + rgb[1] + rgb[2])/3
+
+    centroids.append(brightness)
 
     print(centroids)
 
