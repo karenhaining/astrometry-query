@@ -51,7 +51,7 @@ for dir in os.scandir(processed_dir):
         star_name = c[2][0].split("/")[0].replace(" ", "+")
 
         # get page from simbad
-        loc = path + "/pics/"
+        loc = path + "/stars/"
         subprocess.run(["mkdir", "-p", loc])
 
         full_file_name = loc + "/" + star_name + ".html"
