@@ -7,7 +7,6 @@ python3 client.py --apikey $APIKEY
 for f in ./raw_data/*
 do 
     filename=$(basename -- "$f")
-    filename="${filename%.*}"
     
     resultsdir=./processed_data/$filename
     mkdir -p ./processed_data/$filename
