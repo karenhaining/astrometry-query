@@ -6,6 +6,7 @@ Run images through Astrometry.net to obtain the following information:
 - Centroid pixel brightness
 - Star name
 - Star magnitude
+
 Queries simbad database to then resolve star name obtained from Astrometry.net to BSC number.
 
 Outputs the data into `results.json`.
@@ -19,7 +20,7 @@ Clone the repo. You may need to install astropy: ``pip install astropy``.
 
 ## Dev Notes
 Possible improvements:
-- Getting webpage from simbad every time is kinda slow... and regex capture for the HR \#\#\# is kind of sus
+- Getting webpage from simbad for every star is kinda slow... and regex capture for the HR \#\#\# is kind of sus
 - Have more stages to running the script so that the time-consuming portions don't have to be redone if connection fails/something goes wrong
 
 ## Copyright
