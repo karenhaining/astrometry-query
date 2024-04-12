@@ -17,6 +17,11 @@ Clone the repo. You may need to install astropy: ``pip install astropy``.
 2. Create a directory called `raw_data`. Place the images you wish analyzed in here.
 3. Run script: `python3 run.py`
 
+## Dev Notes
+Possible improvements:
+- Getting webpage from simbad every time is kinda slow... and regex capture for the HR \#\#\# is kind of sus
+- Have more stages to running the script so that the time-consuming portions don't have to be redone if connection fails/something goes wrong
+
 ## Copyright
 
 Uses a modified file from the Astrometry.net code suite (`client.py`). This file was licensed under a 3-clause BSD style license, which states:
