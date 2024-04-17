@@ -65,9 +65,11 @@ for dir in os.scandir(processed_dir):
         x = c[0]
         y = c[1]
 
-        # TODO account for grayscale?
         rgb = pix[y,x]
-        brightness = (rgb[0] + rgb[1] + rgb[2])/3
+        if isinstance(rgb, int):
+            brightness = rgb
+        else:
+            brightness = (rgb[0] + rgb[1] + rgb[2])/3
 
         c.append(brightness)
 
